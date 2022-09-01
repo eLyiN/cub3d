@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 08:57:08 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/29 23:54:18 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:31:23 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,18 @@ typedef struct cub3d
 
 }			t_cub3d;
 
+/* Map Checker */
+bool		read_map(t_cub3d *s);
+bool		chk_mid_map(int mapX, int y, char **map);
+bool		check_walls(t_cub3d *s);
+bool		check_invalid_char(t_cub3d *s);
+bool		check_extension(char *av);
+bool		check_map(t_cub3d *s);
+
 /* Utils */
 
 int			ft_linecount(const char *str, char c);
+void		free_map(char **map);
+void		error_msg(char *error);
 
 #endif
