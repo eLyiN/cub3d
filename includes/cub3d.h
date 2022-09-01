@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 08:57:08 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/01 17:31:23 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:13:24 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ bool		check_walls(t_cub3d *s);
 bool		check_invalid_char(t_cub3d *s);
 bool		check_extension(char *av);
 bool		check_map(t_cub3d *s);
+bool		chk_predecessor_line(int y, char **map);
 
 /* Utils */
 

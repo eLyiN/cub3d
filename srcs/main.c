@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 20:47:31 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/01 17:40:09 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:21:30 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int ac, char *av[])
 		if (check_map(&shlk))
 		{
 			free_map(shlk.map);
-			return (EXIT_FAILURE);
+			error_msg("Map is not fully closed or have multiples init pos.");
 		}
 	}
 	return (EXIT_SUCCESS);
