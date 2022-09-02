@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 20:47:31 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/02 19:32:13 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/03 00:03:52 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	check_elements(t_cub3d *s)
 		y++;
 	}
 	if (elements == 6)
-		process_elements(s->map);
+		process_elements(s->map, s);
 	else
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -67,27 +67,38 @@ void	process_elements(char **map, t_cub3d *s)
 	{
 		if (!ft_strcmp("NO", map[y]) || !ft_strcmp("SO", map[y])
 			|| !ft_strcmp("WE", map[y]) || !ft_strcmp("EA", map[y]))
-			create_texture(map[y]);
+			create_texture(map[y], s->wall);
 		else if (!ft_strcmp("F ", map[y]) || !ft_strcmp("C ", map[y]))
 			create_color(map[y]);
 		y++;
 	}
 }
 
-void	create_texture(char *map)
+void	create_texture(char *map, xpm_t **wall)
 {
-	//TO_DO Probablemente sea mejor crear otra estructura de datos para
-	// dividir las partes del mapa y del juego ya que esta esta siendo bastante larga.
-	// *REMEMBER.
+	int	i;
+
+	if (!ft_strcmp("NO", map))
+		i = 0;
+	else if (!ft_strcmp("SO", map))
+		i = 1;
+	else if (!ft_strcmp("WE", map))
+		i = 2;
+	else if (!ft_strcmp("EA", map))
+		i = 3;
+	wall[i] = mlx_load_xpm42(ft_strchr(map, '.'));
+	if (!wall[i])
+		error_msg("Path or file XPM may be corrupt.");
 }
+
 int	main(int ac, char *av[])
 {
 	t_cub3d	shlk;
 
 	if (ac == 2)
 	{
-		shlk.fd = open(av[1], O_RDONLY); //av[1] is the file patch.
-		if (shlk.fd == -1)               //if -1 error.
+		shlk.fd = open(av[1], O_RDONLY);
+		if (shlk.fd == -1)
 			error_msg("The file couldn't be read, check the map.");
 		if (check_extension(av[1]))
 			error_msg("Check the map extension.");
