@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:28:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/01 19:22:49 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/02 19:24:05 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,36 +44,18 @@ bool	chk_mid_map(int mapX, int y, char **map)
 		return (EXIT_FAILURE);
 }
 
-/**
- * chk_predecessor_line() is created to check if the currently line 
- * that is being checked is longer than the predecessor line. For that
- * I encountered that the problem could be solved adding a function to check
- * if the predecessor line is fully closed with the next one. 
- * This is very interesting and I think it should be documented.
- */
-
-bool	chk_predecessor_line(int y, char **map)
-{
-	int	size;
-
-	size = ft_strlen(map[y]);
-	if (map[y + 1][size - 1] == '1')
-		return (EXIT_SUCCESS);
-	else
-		return (EXIT_FAILURE);
-}
-
 bool	check_walls(t_cub3d *s)
 {
 	int	y;
 	int	x;
+	int	init_y;
 
-	y = 6;
+	y = map_start(s->map);
+	init_y = y;
 	while (s->map[y])
 	{
-		printf("WHILE: %s\n", s->map[y]);
 		s->mapX = ft_strlen(s->map[y]);
-		if (y == 6 || y == (s->mapY - 1))
+		if (y == init_y || y == (s->mapY - 1))
 		{
 			x = 0;
 			while (x < s->mapX)
@@ -84,7 +66,7 @@ bool	check_walls(t_cub3d *s)
 					return (EXIT_FAILURE);
 			}
 		}
-		else if (y > 6 && y < (s->mapY - 1))
+		else if (y > init_y && y < (s->mapY - 1))
 			if (chk_mid_map(s->mapX, y, s->map) == 1)
 				return (EXIT_FAILURE);
 		y++;
@@ -94,38 +76,20 @@ bool	check_walls(t_cub3d *s)
 
 bool	check_invalid_char(t_cub3d *s)
 {
-	int		i;
-	int		j;
+	int		end_y;
+	int		x;
 	bool	pos_ini;
 
-	i = 6;
-	while (s->map[i])
-	{
-		printf("MAP: %s\n", s->map[i]);
-		i++;
-	}
-	i = 6;
+	end_y = s->mapY;
 	pos_ini = false;
-	while (s->map[i])
+	while (ft_strcmp("C ", s->map[end_y]))
 	{
-		j = 0;
-		while (s->map[i][j])
-		{
-			if (s->map[i][j] != '0' || s->map[i][j] != '1'
-				|| s->map[i][j] != ' ')
-			{
-				if ((s->map[i][j] == 'N' || s->map[i][j] == 'S'
-						|| s->map[i][j] == 'E' || s->map[i][j] == 'W')
-					&& pos_ini == false)
-					pos_ini = true;
-				else if ((s->map[i][j] == 'N' || s->map[i][j] == 'S'
-							|| s->map[i][j] == 'E' || s->map[i][j] == 'W')
-						&& pos_ini == true)
-					return (EXIT_FAILURE);
-			}
-			j++;
-		}
-		i++;
+		if (ft_strchr(s->map[end_y], "NSEW" && pos_ini == false))
+			pos_ini = true;
+		else if (ft_strchr(s->map[end_y], "01 "))
+			end_y--;
+		else
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
