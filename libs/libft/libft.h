@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:34:32 by aarribas          #+#    #+#             */
-/*   Updated: 2022/05/17 18:37:34 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:36:49 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char				**ft_split(char const *s, char c);
+int					ft_strcmp(const char *str1, const char *str2);
 
 typedef struct s_list
 {

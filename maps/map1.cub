@@ -1,7 +1,7 @@
-NO ./ruta_a_la_textura_norte
-SO ./ruta_a_la_textura_sur
-WE ./ruta_a_la_textura_oeste
-EA ./ruta_a_la_textura_este
+NO ./xpm/blue.xpm42
+SO ./xpm/red.xpm42
+WE ./xpm/green.xpm42
+EA ./xpm/yellow.xpm42
 
 F 220,100,0
 C 225,30,0

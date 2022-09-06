@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:11:05 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/01 17:35:26 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:33:29 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_linecount(const char *str, char c)
 
 void	free_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map[i])

@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 18:20:32 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/02 18:34:46 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/05 22:32:17 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int	map_start(char **map)
 	y = 0;
 	while (map[y])
 	{
-		if (!ft_strcmp("1111", map[y]))
+		if (ft_strchr(map[y], 'C'))
 		{
+			while (!ft_strchr(map[y], '1'))
+				y++;
 			return (y);
 		}
 		y++;

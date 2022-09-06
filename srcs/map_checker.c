@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:28:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/02 19:24:05 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:38:52 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,54 @@ bool	check_walls(t_cub3d *s)
 
 bool	check_invalid_char(t_cub3d *s)
 {
-	int		end_y;
-	int		x;
-	bool	pos_ini;
+	int	y;
+	int	x;
 
-	end_y = s->mapY;
-	pos_ini = false;
-	while (ft_strcmp("C ", s->map[end_y]))
+	y = s->mapY - 1;
+	while (ft_strcmp("C ", s->map[y]) > 0)
 	{
-		if (ft_strchr(s->map[end_y], "NSEW" && pos_ini == false))
-			pos_ini = true;
-		else if (ft_strchr(s->map[end_y], "01 "))
-			end_y--;
-		else
-			return (EXIT_FAILURE);
+		x = 0;
+		printf("%s\n", s->map[y]);
+		while (s->map[y][x])
+		{
+			if (s->map[y][x] == '0' || s->map[y][x] == '1'
+				|| s->map[y][x] == ' ' || s->map[y][x] == 'N'
+				|| s->map[y][x] == 'S' || s->map[y][x] == 'E'
+				|| s->map[y][x] == 'W')
+				x++;
+			else
+				return (EXIT_FAILURE);
+		}
+		y--;
+	}
+	return (EXIT_SUCCESS);
+}
+
+bool	check_pos_ini(t_cub3d *s) //FALLO EN CHECK_POS
+{
+	int x;
+	int y;
+	int pos_ini;
+
+	y = map_start(s->map);
+	pos_ini = 0;
+	while (y < s->mapY)
+	{
+		x = 0;
+		while (s->map[y][x])
+		{
+			if (s->map[y][x] == 'N' || s->map[y][x] == 'S'
+				|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
+			{
+				pos_ini += 1;
+				s->rayc.posX = x;
+				s->rayc.posY = y;
+			}
+			if (pos_ini >= 2)
+				return (EXIT_FAILURE);
+			x++;
+		}
+		y++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -113,6 +147,8 @@ bool	check_map(t_cub3d *s)
 	if (read_map(s))
 		return (EXIT_FAILURE);
 	if (check_walls(s))
+		return (EXIT_FAILURE);
+	if (check_pos_ini(s))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
