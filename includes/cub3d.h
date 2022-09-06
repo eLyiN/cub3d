@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 08:57:08 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/06 14:29:37 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:29:08 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ typedef enum s_elements
 	IMG_COUNT,
 }				t_elements;
 
+typedef enum s_rgb
+{
+	R,
+	G,
+	B,
+	RGB,
+}				t_rgb;
+
 typedef struct s_mlx
 {
 	mlx_t		*mlx_cub;
@@ -48,43 +56,53 @@ typedef struct s_mlx
 
 typedef struct s_raycast
 {
-	double		posX;
-	double		posY;
-	double		dirX;
-	double		dirY;
-	double		planeX;
-	double		planeY;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
+	double		planex;
+	double		planey;
 	double		time;
-	double		oldTime;
+	double		oldtime;
 }				t_raycast;
 
 typedef struct s_cub3d
 {
-	int			fd;
 	char		**map;
-	int32_t		mapY;
-	int32_t		mapX;
+	int32_t		mapy;
+	int32_t		mapx;
 	xpm_t		*wall[IMG_COUNT];
+	int			c_rgb[RGB];
+	int			f_rgb[RGB];
 	t_raycast	rayc;
 	t_mlx_cub	mlx;
 }				t_cub3d;
 
 /* Map Checker */
-bool			read_map(t_cub3d *s);
+
 bool			chk_mid_map(int mapX, int y, char **map);
 bool			check_walls(t_cub3d *s);
 bool			check_invalid_char(t_cub3d *s);
 bool			check_extension(char *av);
 bool			check_map(t_cub3d *s);
-bool			chk_predecessor_line(int y, char **map);
-void			process_elements(char **map, t_cub3d *s);
+
+/* Map Elements */
+
+bool			read_map(t_cub3d *s, char *av);
+bool			process_elements(char **map, t_cub3d *s);
 void			create_texture(char *map, xpm_t **wall);
+bool			create_color(t_cub3d *s, int y);
+bool			check_elements(t_cub3d *s);
 
 /* Utils */
 
 int				ft_linecount(const char *str, char c);
 void			free_map(char **map);
 void			error_msg(char *error);
+
+/* Utils Map */
+
+bool			chk_predecessor_line(int y, char **map);
 int				map_start(char **map);
 
 #endif

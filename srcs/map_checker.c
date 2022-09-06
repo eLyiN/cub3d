@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:28:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/06 14:38:52 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:24:12 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ bool	check_walls(t_cub3d *s)
 	init_y = y;
 	while (s->map[y])
 	{
-		s->mapX = ft_strlen(s->map[y]);
-		if (y == init_y || y == (s->mapY - 1))
+		s->mapx = ft_strlen(s->map[y]);
+		if (y == init_y || y == (s->mapy - 1))
 		{
 			x = 0;
-			while (x < s->mapX)
+			while (x < s->mapx)
 			{
 				if (s->map[y][x] == '1' || s->map[y][x] == ' ')
 					x++;
@@ -66,8 +66,8 @@ bool	check_walls(t_cub3d *s)
 					return (EXIT_FAILURE);
 			}
 		}
-		else if (y > init_y && y < (s->mapY - 1))
-			if (chk_mid_map(s->mapX, y, s->map) == 1)
+		else if (y > init_y && y < (s->mapy - 1))
+			if (chk_mid_map(s->mapx, y, s->map) == 1)
 				return (EXIT_FAILURE);
 		y++;
 	}
@@ -79,7 +79,7 @@ bool	check_invalid_char(t_cub3d *s)
 	int	y;
 	int	x;
 
-	y = s->mapY - 1;
+	y = s->mapy - 1;
 	while (ft_strcmp("C ", s->map[y]) > 0)
 	{
 		x = 0;
@@ -99,15 +99,15 @@ bool	check_invalid_char(t_cub3d *s)
 	return (EXIT_SUCCESS);
 }
 
-bool	check_pos_ini(t_cub3d *s) //FALLO EN CHECK_POS
+bool	check_pos_ini(t_cub3d *s)
 {
-	int x;
-	int y;
-	int pos_ini;
+	int	x;
+	int	y;
+	int	pos_ini;
 
 	y = map_start(s->map);
 	pos_ini = 0;
-	while (y < s->mapY)
+	while (y < s->mapy)
 	{
 		x = 0;
 		while (s->map[y][x])
@@ -116,8 +116,8 @@ bool	check_pos_ini(t_cub3d *s) //FALLO EN CHECK_POS
 				|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
 			{
 				pos_ini += 1;
-				s->rayc.posX = x;
-				s->rayc.posY = y;
+				s->rayc.posx = x;
+				s->rayc.posy = y;
 			}
 			if (pos_ini >= 2)
 				return (EXIT_FAILURE);
@@ -144,11 +144,20 @@ bool	check_extension(char *av)
 
 bool	check_map(t_cub3d *s)
 {
-	if (read_map(s))
-		return (EXIT_FAILURE);
 	if (check_walls(s))
+	{
+		free_map(s->map);
 		return (EXIT_FAILURE);
+	}
 	if (check_pos_ini(s))
+	{
+		free_map(s->map);
 		return (EXIT_FAILURE);
+	}
+	if (check_invalid_char(s))
+	{
+		free_map(s->map);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
