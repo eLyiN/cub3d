@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:28:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/06 17:24:12 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:42:15 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ bool	check_invalid_char(t_cub3d *s)
 	while (ft_strcmp("C ", s->map[y]) > 0)
 	{
 		x = 0;
-		printf("%s\n", s->map[y]);
 		while (s->map[y][x])
 		{
 			if (s->map[y][x] == '0' || s->map[y][x] == '1'
