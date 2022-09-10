@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:49:00 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/09 18:09:50 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/11 01:13:50 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	perform_dda(t_raycast *r, char **map)
 			r->mapy += r->stepy;
 			r->side = 1;
 		}
-		if (map[abs(r->mapy)][abs(r->mapx)] == '1')
+		if (map[r->mapy][r->mapx] == '1')
 			r->hit = 1;
 	}
 }
@@ -122,7 +122,7 @@ void	raycasting(void *param)
 		else
 			s->rayc.perpwalldist = (s->rayc.sidedisty - s->rayc.deltadisty);
 		if (s->rayc.side == 1)
-			color_test = get_rgb(60, 190, 215);
+			color_test = get_rgb(135, 72, 0);
 		draw_walls(s, x, color_test);
 		x++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:27:36 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/09 13:32:31 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/10 23:33:34 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	read_map(t_cub3d *s, char *av)
 	int			fd;
 
 	fd = open(av, O_RDONLY);
+	if (fd == -1)
+		error_msg("The file may not exist.");
 	size_read = -1;
 	buff = ft_calloc(10000, sizeof(char));
 	while (size_read != 0)
