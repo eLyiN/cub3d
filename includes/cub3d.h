@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 08:57:08 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/09 18:03:06 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:12:04 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@ typedef enum s_elements
 	IMG_COUNT,
 }				t_elements;
 
-typedef enum s_rgb
-{
-	R,
-	G,
-	B,
-	A,
-	RGB,
-}				t_rgb;
-
 typedef struct s_mlx
 {
 	mlx_t		*mlx_cub;
@@ -62,9 +53,6 @@ typedef struct s_raycast
 	int			mapy;
 	double		planex;
 	double		planey;
-	double		time;
-	double		oldtime;
-	double		frametime;
 	double		raydirx;
 	double		raydiry;
 	double		sidedistx;
@@ -98,7 +86,7 @@ bool			chk_mid_map(int mapX, int y, char **map);
 bool			check_walls(t_cub3d *s);
 bool			check_invalid_char(t_cub3d *s);
 bool			check_extension(char *av);
-bool			check_map(t_cub3d *s);
+void			check_map(t_cub3d *s);
 
 /* Map Elements */
 
@@ -107,6 +95,14 @@ void			process_elements(char **map, t_cub3d *s);
 void			create_texture(t_cub3d *s, int y);
 void			create_color(t_cub3d *s, int y);
 bool			check_elements(t_cub3d *s);
+
+/* Initial Position Camera */
+
+bool			check_pos_ini(t_cub3d *s);
+bool			set_pos_ini_n(t_raycast *r, int x, int y);
+bool			set_pos_ini_e(t_raycast *r, int x, int y);
+bool			set_pos_ini_s(t_raycast *r, int x, int y);
+bool			set_pos_ini_w(t_raycast *r, int x, int y);
 
 /* Raycasting */
 

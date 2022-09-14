@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:06:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/11 01:04:24 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:15:04 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,13 @@ void	char_hook(void *param)
 	s = param;
 	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_W))
 	{
-		if (s->map[(int)s->rayc.posy][(int)(s->rayc.posx + s->rayc.dirx
-				* MOVE_SPEED)] == '0')
-			s->rayc.posx += (s->rayc.dirx * MOVE_SPEED);
-		if (s->map[(int)(s->rayc.posy + s->rayc.diry
-				* MOVE_SPEED)][(int)s->rayc.posx] == '0')
-			s->rayc.posy += (s->rayc.diry * MOVE_SPEED);
+		s->rayc.posx += (s->rayc.dirx * MOVE_SPEED);
+		s->rayc.posy += (s->rayc.diry * MOVE_SPEED);
 	}
 	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_S))
 	{
-		if (s->map[(int)s->rayc.posy][(int)(s->rayc.posx + s->rayc.dirx
-				* MOVE_SPEED)] == '0')
-			s->rayc.posx -= (s->rayc.dirx * MOVE_SPEED);
-		if (s->map[(int)(s->rayc.posy + s->rayc.diry
-				* MOVE_SPEED)][(int)s->rayc.posx] == '0')
-			s->rayc.posy -= (s->rayc.diry * MOVE_SPEED);
+		s->rayc.posx -= (s->rayc.dirx * MOVE_SPEED);
+		s->rayc.posy -= (s->rayc.diry * MOVE_SPEED);
 	}
 	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_LEFT))
 	{

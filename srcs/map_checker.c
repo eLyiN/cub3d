@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:28:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/06 17:42:15 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:14:51 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,44 +85,12 @@ bool	check_invalid_char(t_cub3d *s)
 		x = 0;
 		while (s->map[y][x])
 		{
-			if (s->map[y][x] == '0' || s->map[y][x] == '1'
-				|| s->map[y][x] == ' ' || s->map[y][x] == 'N'
-				|| s->map[y][x] == 'S' || s->map[y][x] == 'E'
-				|| s->map[y][x] == 'W')
+			if (ft_strchr("01NESW ", s->map[y][x]))
 				x++;
 			else
 				return (EXIT_FAILURE);
 		}
 		y--;
-	}
-	return (EXIT_SUCCESS);
-}
-
-bool	check_pos_ini(t_cub3d *s)
-{
-	int	x;
-	int	y;
-	int	pos_ini;
-
-	y = map_start(s->map);
-	pos_ini = 0;
-	while (y < s->mapy)
-	{
-		x = 0;
-		while (s->map[y][x])
-		{
-			if (s->map[y][x] == 'N' || s->map[y][x] == 'S'
-				|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
-			{
-				pos_ini += 1;
-				s->rayc.posx = x;
-				s->rayc.posy = y;
-			}
-			if (pos_ini >= 2)
-				return (EXIT_FAILURE);
-			x++;
-		}
-		y++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -141,22 +109,21 @@ bool	check_extension(char *av)
 	return (EXIT_FAILURE);
 }
 
-bool	check_map(t_cub3d *s)
+void	check_map(t_cub3d *s)
 {
 	if (check_walls(s))
 	{
 		free_map(s->map);
-		return (EXIT_FAILURE);
+		error_msg("The map does not contain the necessary elements or is not closed.");
 	}
 	if (check_pos_ini(s))
 	{
 		free_map(s->map);
-		return (EXIT_FAILURE);
+		error_msg("The map contains multiple starting positions.");
 	}
 	if (check_invalid_char(s))
 	{
 		free_map(s->map);
-		return (EXIT_FAILURE);
+		error_msg("The map contains invalid characters.");
 	}
-	return (EXIT_SUCCESS);
 }

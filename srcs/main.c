@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 20:47:31 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/09 18:02:15 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:03:16 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	init_game(t_cub3d *s)
 {
+	s->mlx.height = HEIGHT;
+	s->mlx.width = WIDTH;
 	s->mlx.mlx_cub = mlx_init(s->mlx.width, s->mlx.height, "cub3d", true);
 	s->mlx.window = mlx_new_image(s->mlx.mlx_cub, s->mlx.width, s->mlx.width);
 	mlx_image_to_window(s->mlx.mlx_cub, s->mlx.window, 0, 0);
@@ -41,18 +43,6 @@ void	background_hook(void *param)
 	}
 }
 
-void	init_config(t_raycast *ray, t_mlx_cub *mlx)
-{
-	ray->dirx = -1;
-	ray->diry = 0;
-	ray->planex = 0;
-	ray->planey = 0.66;
-	ray->time = 0;
-	ray->oldtime = 0;
-	mlx->height = HEIGHT;
-	mlx->width = WIDTH;
-}
-
 int	main(int ac, char *av[])
 {
 	t_cub3d	shlk;
@@ -65,12 +55,7 @@ int	main(int ac, char *av[])
 			error_msg("Check the map extension.");
 		if (check_elements(&shlk))
 			error_msg("Something goes wrong with the elements in the map.");
-		if (check_map(&shlk))
-		{
-			free_map(shlk.map);
-			error_msg("Map is not fully closed or have multiples init pos.");
-		}
-		init_config(&shlk.rayc, &shlk.mlx);
+		check_map(&shlk);
 		init_game(&shlk);
 	}
 	return (EXIT_SUCCESS);
