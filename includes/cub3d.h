@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 08:57:08 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/15 00:12:04 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:30:39 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,109 +30,118 @@ typedef enum s_elements
 	WE,
 	EA,
 	IMG_COUNT,
-}				t_elements;
+}					t_elements;
 
 typedef struct s_mlx
 {
-	mlx_t		*mlx_cub;
-	mlx_image_t	*window;
-	void		*context;
-	int32_t		width;
-	int32_t		height;
-	double		delta_time;
-}				t_mlx_cub;
+	mlx_t			*mlx_cub;
+	mlx_image_t		*window;
+	void			*context;
+	int32_t			width;
+	int32_t			height;
+	double			delta_time;
+}					t_mlx_cub;
 
 typedef struct s_raycast
 {
-	double		camerax;
-	double		posx;
-	double		posy;
-	double		dirx;
-	double		diry;
-	int			mapx;
-	int			mapy;
-	double		planex;
-	double		planey;
-	double		raydirx;
-	double		raydiry;
-	double		sidedistx;
-	double		sidedisty;
-	double		deltadistx;
-	double		deltadisty;
-	double		perpwalldist;
-	int			stepx;
-	int			stepy;
-	int			side;
-	int			hit;
-	int			lineheight;
-}				t_raycast;
+	double			camerax;
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
+	int				mapx;
+	int				mapy;
+	double			planex;
+	double			planey;
+	double			raydirx;
+	double			raydiry;
+	double			sidedistx;
+	double			sidedisty;
+	double			deltadistx;
+	double			deltadisty;
+	double			perpwalldist;
+	int				stepx;
+	int				stepy;
+	int				side;
+	int				hit;
+	int				lineheight;
+}					t_raycast;
 
 typedef struct s_cub3d
 {
-	char		**map;
-	int32_t		mapy;
-	int32_t		mapx;
-	xpm_t		*wall[IMG_COUNT];
-	mlx_image_t	*img[IMG_COUNT];
-	uint32_t	ceiling;
-	uint32_t	floor;
-	t_raycast	rayc;
-	t_mlx_cub	mlx;
-}				t_cub3d;
+	char			**map;
+	int32_t			mapy;
+	int32_t			mapx;
+	mlx_texture_t	*wall[IMG_COUNT];
+	mlx_image_t		*img[IMG_COUNT];
+	uint32_t		ceiling;
+	uint32_t		floor;
+	t_raycast		rayc;
+	t_mlx_cub		mlx;
+}					t_cub3d;
+
+COLOR				ml_color_at(mlx_texture_t *img, int x, int y);
 
 /* Map Checker */
 
-bool			chk_mid_map(int mapX, int y, char **map);
-bool			check_walls(t_cub3d *s);
-bool			check_invalid_char(t_cub3d *s);
-bool			check_extension(char *av);
-void			check_map(t_cub3d *s);
+bool				chk_mid_map(int mapX, int y, char **map);
+bool				check_walls(t_cub3d *s);
+bool				check_invalid_char(t_cub3d *s);
+bool				check_extension(char *av);
+void				check_map(t_cub3d *s);
 
 /* Map Elements */
 
-bool			read_map(t_cub3d *s, char *av);
-void			process_elements(char **map, t_cub3d *s);
-void			create_texture(t_cub3d *s, int y);
-void			create_color(t_cub3d *s, int y);
-bool			check_elements(t_cub3d *s);
+bool				read_map(t_cub3d *s, char *av);
+void				process_elements(char **map, t_cub3d *s);
+void				create_texture(t_cub3d *s, int y);
+void				create_color(t_cub3d *s, int y);
+bool				check_elements(t_cub3d *s);
 
 /* Initial Position Camera */
 
-bool			check_pos_ini(t_cub3d *s);
-bool			set_pos_ini_n(t_raycast *r, int x, int y);
-bool			set_pos_ini_e(t_raycast *r, int x, int y);
-bool			set_pos_ini_s(t_raycast *r, int x, int y);
-bool			set_pos_ini_w(t_raycast *r, int x, int y);
+bool				check_pos_ini(t_cub3d *s);
+bool				set_pos_ini_n(t_raycast *r, int x, int y);
+bool				set_pos_ini_e(t_raycast *r, int x, int y);
+bool				set_pos_ini_s(t_raycast *r, int x, int y);
+bool				set_pos_ini_w(t_raycast *r, int x, int y);
 
 /* Raycasting */
 
-void			raycasting(void *param);
-void			draw_walls(t_cub3d *s, int x, int32_t color_test);
-void			perform_dda(t_raycast *r, char **map);
-void			raycast_init(t_raycast *r, int x);
-void			calculate_step(t_cub3d *s);
+void				raycasting(void *param);
+void				draw_walls(t_cub3d *s, int x);
+void				perform_dda(t_raycast *r, char **map);
+void				raycast_init(t_raycast *r, int x);
+void				calculate_step(t_cub3d *s);
 
 /* Utils */
 
-int				ft_linecount(const char *str, char c);
-void			free_map(char **map);
-void			error_msg(char *error);
+int					ft_linecount(const char *str, char c);
+void				free_map(char **map);
+void				error_msg(char *error);
 
 /* Color conversion */
 
-uint32_t		get_rgb(int r, int g, int b);
-uint32_t		get_rgba(int r, int g, int b, int a);
-void			load_color(char **rgb, uint32_t *color);
+uint32_t			get_rgb(int r, int g, int b);
+uint32_t			get_rgba(int r, int g, int b, int a);
+void				load_color(char **rgb, uint32_t *color);
+
+/* Texturing */
+
+void				texturing_calculations(t_cub3d *s, int drawstart,
+						int drawend, int x);
+void				texture_step(t_cub3d *s, int drawstart, int drawend,
+						int texx, int x);
 
 /* Utils Map */
 
-bool			chk_predecessor_line(int y, char **map);
-int				map_start(char **map);
+bool				chk_predecessor_line(int y, char **map);
+int					map_start(char **map);
 
-void			background_hook(void *param);
-void			draw_verline(mlx_image_t *screen, int y1, int y2, int x,
-					int32_t color_test);
+void				background_hook(void *param);
+void				draw_verline(mlx_image_t *screen, int y1, int y2, int x,
+						int32_t color_test);
 
-void			char_hook(void *param);
+void				char_hook(void *param);
 
 #endif

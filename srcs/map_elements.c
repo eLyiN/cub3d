@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:27:36 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/10 23:33:34 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/15 22:37:39 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@ void	create_texture(t_cub3d *s, int y)
 		i = 2;
 	else if (!ft_strncmp("EA", s->map[y], 2))
 		i = 3;
-	s->wall[i] = mlx_load_xpm42(ft_strchr(s->map[y], '.'));
-	if (!s->wall[i])
+	printf("PATH:%s\n", ft_strchr(s->map[y], '.'));
+	s->wall[i] = mlx_load_png(ft_strchr(s->map[y], '.'));
+	printf("ESTOY");
+	if (!s->wall[i] || !s->img[i])
 	{
 		free_map(s->map);
 		error_msg("Path or file XPM may be corrupt.");

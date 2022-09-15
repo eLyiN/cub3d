@@ -6,40 +6,25 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:49:00 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/15 00:14:38 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:36:39 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	draw_walls(t_cub3d *s, int x, int32_t color_test)
+void	draw_walls(t_cub3d *s, int x)
 {
 	int	drawstart;
 	int	drawend;
 
 	s->rayc.lineheight = (int)((HEIGHT) / s->rayc.perpwalldist);
-	drawstart = (-(s->rayc.lineheight) / 2) + (HEIGHT / 2);
+	drawstart = (-s->rayc.lineheight / 2) + (HEIGHT / 2);
 	if (drawstart < 0)
 		drawstart = 0;
 	drawend = (s->rayc.lineheight / 2) + (HEIGHT / 2);
 	if (drawend >= HEIGHT)
 		drawend = HEIGHT - 1;
-	draw_verline(s->mlx.window, drawstart, drawend, x, color_test);
-}
-
-void	draw_verline(mlx_image_t *screen, int y1, int y2, int x,
-		int32_t color_test)
-{
-	int	start;
-	int	end;
-
-	start = y1;
-	end = y2;
-	while (start < end)
-	{
-		mlx_put_pixel(screen, x, start, color_test);
-		start++;
-	}
+	texturing_calculations(s, drawstart, drawend, x);
 }
 
 void	perform_dda(t_raycast *r, char **map)
@@ -107,11 +92,9 @@ void	raycasting(void *param)
 {
 	t_cub3d	*s;
 	int		x;
-	int32_t	color_test;
 
 	x = 0;
 	s = param;
-	color_test = get_rgb(255, 130, 0);
 	while (x < s->mlx.width)
 	{
 		raycast_init(&s->rayc, x);
@@ -121,9 +104,7 @@ void	raycasting(void *param)
 			s->rayc.perpwalldist = (s->rayc.sidedistx - s->rayc.deltadistx);
 		else
 			s->rayc.perpwalldist = (s->rayc.sidedisty - s->rayc.deltadisty);
-		if (s->rayc.side == 1)
-			color_test = get_rgb(135, 72, 0);
-		draw_walls(s, x, color_test);
+		draw_walls(s, x);
 		x++;
 	}
 }

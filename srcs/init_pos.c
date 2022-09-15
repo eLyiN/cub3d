@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:26:21 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/15 00:14:53 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:20:10 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ bool	check_pos_ini(t_cub3d *s)
 				pos_ini += set_pos_ini_n(&s->rayc, x, y);
 			x++;
 		}
-		if (pos_ini >= 2)
+		if (pos_ini > 1)
 			return (EXIT_FAILURE);
 		y++;
 	}

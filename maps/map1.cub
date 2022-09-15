@@ -1,7 +1,7 @@
-NO ./xpm/blue.xpm42
-SO ./xpm/red.xpm42
-WE ./xpm/green.xpm42
-EA ./xpm/yellow.xpm42
+NO ./textures/eagle.png
+SO ./textures/greystone.png
+WE ./textures/mossy.png
+EA ./textures/wood.png
 
 F 255,255,255
 C 225,30,0
