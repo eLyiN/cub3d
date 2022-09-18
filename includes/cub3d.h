@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 08:57:08 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/15 23:30:39 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:17:44 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ typedef struct s_mlx
 	double			delta_time;
 }					t_mlx_cub;
 
+typedef struct s_texture
+{
+	double			step;
+	double			texpos;
+	double			wallx;
+	int				texx;
+	int				texy;
+}					t_texture;
+
 typedef struct s_raycast
 {
 	double			camerax;
@@ -60,6 +69,7 @@ typedef struct s_raycast
 	double			deltadistx;
 	double			deltadisty;
 	double			perpwalldist;
+	int				pixel;
 	int				stepx;
 	int				stepy;
 	int				side;
@@ -72,15 +82,18 @@ typedef struct s_cub3d
 	char			**map;
 	int32_t			mapy;
 	int32_t			mapx;
-	mlx_texture_t	*wall[IMG_COUNT];
-	mlx_image_t		*img[IMG_COUNT];
+	mlx_texture_t	*png[IMG_COUNT];
+	mlx_image_t		*wall[IMG_COUNT];
 	uint32_t		ceiling;
 	uint32_t		floor;
+	t_texture		texturing;
 	t_raycast		rayc;
 	t_mlx_cub		mlx;
 }					t_cub3d;
 
-COLOR				ml_color_at(mlx_texture_t *img, int x, int y);
+COLOR				ml_color_at(mlx_image_t *img, int x, int y);
+mlx_image_t			*decide_texture(t_cub3d *s);
+void				left_right_cam(void *param);
 
 /* Map Checker */
 
@@ -142,6 +155,6 @@ void				background_hook(void *param);
 void				draw_verline(mlx_image_t *screen, int y1, int y2, int x,
 						int32_t color_test);
 
-void				char_hook(void *param);
+void				wasd_hook(void *param);
 
 #endif

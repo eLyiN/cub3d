@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:49:00 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/15 23:36:39 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/18 23:24:10 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	draw_walls(t_cub3d *s, int x)
 
 void	perform_dda(t_raycast *r, char **map)
 {
+	r->hit = 0;
 	while (r->hit == 0)
 	{
 		if (r->sidedistx < r->sidedisty)
@@ -81,30 +82,26 @@ void	raycast_init(t_raycast *r, int x)
 	r->raydiry = r->diry + r->planey * r->camerax;
 	r->mapx = (int)r->posx;
 	r->mapy = (int)r->posy;
-	r->deltadistx = sqrt(1 + (r->raydiry * r->raydiry) / (r->raydirx
-				* r->raydirx));
-	r->deltadisty = sqrt(1 + (r->raydirx * r->raydirx) / (r->raydiry
-				* r->raydiry));
-	r->hit = 0;
+	r->deltadistx = fabs(1 / r->raydirx);
+	r->deltadisty = fabs(1 / r->raydiry);
 }
 
 void	raycasting(void *param)
 {
 	t_cub3d	*s;
-	int		x;
 
-	x = 0;
 	s = param;
-	while (x < s->mlx.width)
+	s->rayc.pixel = 0;
+	while (s->rayc.pixel < s->mlx.width)
 	{
-		raycast_init(&s->rayc, x);
+		raycast_init(&s->rayc, s->rayc.pixel);
 		calculate_step(s);
 		perform_dda(&s->rayc, s->map);
 		if (s->rayc.side == 0)
 			s->rayc.perpwalldist = (s->rayc.sidedistx - s->rayc.deltadistx);
 		else
 			s->rayc.perpwalldist = (s->rayc.sidedisty - s->rayc.deltadisty);
-		draw_walls(s, x);
-		x++;
+		draw_walls(s, s->rayc.pixel);
+		s->rayc.pixel++;
 	}
 }
