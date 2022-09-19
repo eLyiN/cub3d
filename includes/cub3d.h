@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 08:57:08 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/18 23:17:44 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:23:23 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ typedef struct s_cub3d
 	t_mlx_cub		mlx;
 }					t_cub3d;
 
-COLOR				ml_color_at(mlx_image_t *img, int x, int y);
+uint32_t			put_pixel_color(mlx_image_t *img, int x, int y);
 mlx_image_t			*decide_texture(t_cub3d *s);
 void				left_right_cam(void *param);
+void				load_images(t_cub3d *s);
 
 /* Map Checker */
 

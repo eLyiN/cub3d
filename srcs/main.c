@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 20:47:31 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/18 22:50:51 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:58:42 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	init_game(t_cub3d *s)
 	s->mlx.mlx_cub = mlx_init(s->mlx.width, s->mlx.height, "cub3d", true);
 	s->mlx.window = mlx_new_image(s->mlx.mlx_cub, s->mlx.width, s->mlx.width);
 	mlx_image_to_window(s->mlx.mlx_cub, s->mlx.window, 0, 0);
-	s->wall[SO] = mlx_texture_to_image(s->mlx.mlx_cub, s->png[SO]);
-	s->wall[NO] = mlx_texture_to_image(s->mlx.mlx_cub, s->png[NO]);
-	s->wall[EA] = mlx_texture_to_image(s->mlx.mlx_cub, s->png[EA]);
-	s->wall[WE] = mlx_texture_to_image(s->mlx.mlx_cub, s->png[WE]);
+	load_images(s);
 	mlx_loop_hook(s->mlx.mlx_cub, background_hook, s);
 	mlx_loop_hook(s->mlx.mlx_cub, raycasting, s);
 	mlx_loop_hook(s->mlx.mlx_cub, wasd_hook, s);

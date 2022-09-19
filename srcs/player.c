@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:06:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/18 23:06:30 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:45:03 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,27 @@ void	wasd_hook(void *param)
 	s = param;
 	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_W))
 	{
-		s->rayc.posx += (s->rayc.dirx * MOVE_SPEED);
-		s->rayc.posy += (s->rayc.diry * MOVE_SPEED);
+		s->rayc.posx += (s->rayc.dirx * MOVE_SPEED) + (s->rayc.planex
+				* MOVE_SPEED);
+		s->rayc.posy += (s->rayc.diry * MOVE_SPEED) + (s->rayc.planey
+				* MOVE_SPEED);
 	}
-	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_S))
+	else if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_S))
 	{
-		s->rayc.posx -= (s->rayc.dirx * MOVE_SPEED);
-		s->rayc.posy -= (s->rayc.diry * MOVE_SPEED);
+		s->rayc.posx -= (s->rayc.dirx * MOVE_SPEED) + (s->rayc.planex
+				* MOVE_SPEED);
+		s->rayc.posy -= (s->rayc.diry * MOVE_SPEED) + (s->rayc.planey
+				* MOVE_SPEED);
 	}
-	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_D))
+	else if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_D))
 	{
 		s->rayc.posx += (s->rayc.planex * MOVE_SPEED);
-	}
-	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_A))
-	{
 		s->rayc.posy += (s->rayc.planey * MOVE_SPEED);
+	}
+	else if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_A))
+	{
+		s->rayc.posx -= (s->rayc.planex * MOVE_SPEED);
+		s->rayc.posy -= (s->rayc.planey * MOVE_SPEED);
 	}
 }
 

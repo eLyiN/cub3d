@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:33:07 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/18 23:53:20 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:00:31 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	texturing_calculations(t_cub3d *s, int drawstart, int drawend, int x)
 	{
 		s->texturing.texy = (int)s->texturing.texpos & (tex->height - 1);
 		s->texturing.texpos += s->texturing.step;
-		c = ml_color_at(tex, s->texturing.texx, s->texturing.texy);
+		c = put_pixel_color(tex, s->texturing.texx, s->texturing.texy);
 		mlx_put_pixel(s->mlx.window, x, y, c);
 		y++;
 	}
@@ -57,10 +57,10 @@ mlx_image_t	*decide_texture(t_cub3d *s)
 	return (texture);
 }
 
-COLOR	ml_color_at(mlx_image_t *img, int x, int y)
+uint32_t	put_pixel_color(mlx_image_t *img, int x, int y)
 {
-	COLOR	*pixel;
+	uint32_t	*px;
 
-	pixel = (COLOR *)(img->pixels + (x + y * img->height) * sizeof(COLOR));
-	return (*pixel);
+	px = (uint32_t *)(img->pixels + (img->height * y + x) * sizeof(uint32_t));
+	return (*px);
 }
