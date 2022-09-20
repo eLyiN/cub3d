@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 08:47:07 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/18 23:59:02 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:07:37 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define COLOR unsigned int
-# define MOVE_SPEED .05
-# define ROT_SPEED .05
-# define PITCH 100
+# define MOV_SP .05
+# define RT_SP .05
 #endif

@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:28:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/15 00:14:51 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:28:04 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * otherwise the false status will not change. 
 */
 
-bool	chk_mid_map(int mapX, int y, char **map)
+void	check_mid_map(int mapX, int y, char **map)
 {
 	int		x;
 	bool	start;
@@ -39,15 +39,29 @@ bool	chk_mid_map(int mapX, int y, char **map)
 		x++;
 	}
 	if (start == true && end == true)
-		return (EXIT_SUCCESS);
+		return ;
 	else
-		return (EXIT_FAILURE);
+		error_msg("The map is not closed by walls.");
 }
 
-bool	check_walls(t_cub3d *s)
+void	check_first_last_line(t_cub3d *s, int y)
+{
+	int	x;
+
+	x = 0;
+	while (x < s->mapx)
+	{
+		if (s->map[y][x] == '1' || s->map[y][x] == ' ')
+			x++;
+		else
+			error_msg("The map is not closed by walls.");
+	}
+	return ;
+}
+
+void	check_walls(t_cub3d *s)
 {
 	int	y;
-	int	x;
 	int	init_y;
 
 	y = map_start(s->map);
@@ -56,25 +70,14 @@ bool	check_walls(t_cub3d *s)
 	{
 		s->mapx = ft_strlen(s->map[y]);
 		if (y == init_y || y == (s->mapy - 1))
-		{
-			x = 0;
-			while (x < s->mapx)
-			{
-				if (s->map[y][x] == '1' || s->map[y][x] == ' ')
-					x++;
-				else
-					return (EXIT_FAILURE);
-			}
-		}
+			check_first_last_line(s, y);
 		else if (y > init_y && y < (s->mapy - 1))
-			if (chk_mid_map(s->mapx, y, s->map) == 1)
-				return (EXIT_FAILURE);
+			check_mid_map(s->mapx, y, s->map);
 		y++;
 	}
-	return (EXIT_SUCCESS);
 }
 
-bool	check_invalid_char(t_cub3d *s)
+void	check_invalid_char(t_cub3d *s)
 {
 	int	y;
 	int	x;
@@ -88,11 +91,10 @@ bool	check_invalid_char(t_cub3d *s)
 			if (ft_strchr("01NESW ", s->map[y][x]))
 				x++;
 			else
-				return (EXIT_FAILURE);
+				error_msg("The map contains invalid characters.");
 		}
 		y--;
 	}
-	return (EXIT_SUCCESS);
 }
 
 bool	check_extension(char *av)
@@ -107,23 +109,4 @@ bool	check_extension(char *av)
 		av++;
 	}
 	return (EXIT_FAILURE);
-}
-
-void	check_map(t_cub3d *s)
-{
-	if (check_walls(s))
-	{
-		free_map(s->map);
-		error_msg("The map does not contain the necessary elements or is not closed.");
-	}
-	if (check_pos_ini(s))
-	{
-		free_map(s->map);
-		error_msg("The map contains multiple starting positions.");
-	}
-	if (check_invalid_char(s))
-	{
-		free_map(s->map);
-		error_msg("The map contains invalid characters.");
-	}
 }

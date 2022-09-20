@@ -6,26 +6,11 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:49:00 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/19 20:05:02 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:22:35 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	draw_walls(t_cub3d *s, int x)
-{
-	int	drawstart;
-	int	drawend;
-
-	s->rayc.lineheight = (int)((HEIGHT) / s->rayc.perpwalldist);
-	drawstart = (-s->rayc.lineheight / 2) + (HEIGHT / 2);
-	if (drawstart < 0)
-		drawstart = 0;
-	drawend = (s->rayc.lineheight / 2) + (HEIGHT / 2);
-	if (drawend >= HEIGHT)
-		drawend = HEIGHT - 1;
-	texturing_calculations(s, drawstart, drawend, x);
-}
 
 void	perform_dda(t_raycast *r, char **map)
 {

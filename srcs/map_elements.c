@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:27:36 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/18 01:04:30 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:18:56 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,6 @@ bool	read_map(t_cub3d *s, char *av)
 	return (EXIT_SUCCESS);
 }
 
-void	create_color(t_cub3d *s, int y)
-{
-	int		x;
-	char	**rgb;
-
-	x = 0;
-	while (!ft_isdigit(s->map[y][x]))
-		x++;
-	rgb = ft_split(s->map[y] + x, ',');
-	if (!rgb[1] || !rgb[2])
-		error_msg("RGB Color is missing.");
-	if (!ft_strncmp("C ", s->map[y], 2))
-	{
-		load_color(rgb, &s->ceiling);
-		free_map(rgb);
-	}
-	else if (!ft_strncmp("F ", s->map[y], 2))
-	{
-		load_color(rgb, &s->floor);
-		free_map(rgb);
-	}
-}
-
-void	load_color(char **rgb, uint32_t *color)
-{
-	if (ft_atoi(rgb[0]) >= 0 && ft_atoi(rgb[0]) <= 255 && ft_atoi(rgb[1]) >= 0
-		&& ft_atoi(rgb[1]) <= 255 && ft_atoi(rgb[2]) >= 0
-		&& ft_atoi(rgb[2]) <= 255)
-		*color = get_rgb(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
-	else
-		error_msg("RGB Color out of range.");
-}
-
 void	create_texture(t_cub3d *s, int y)
 {
 	int	i;
@@ -82,7 +49,6 @@ void	create_texture(t_cub3d *s, int y)
 		i = 2;
 	else if (!ft_strncmp("EA", s->map[y], 2))
 		i = 3;
-	printf("PATH:%s\n", ft_strchr(s->map[y], '.'));
 	s->png[i] = mlx_load_png(ft_strchr(s->map[y], '.'));
 	if (!s->png[i])
 	{

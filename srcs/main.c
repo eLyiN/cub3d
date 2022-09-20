@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 20:47:31 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/19 18:58:42 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:24:20 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,6 @@ void	init_game(t_cub3d *s)
 	mlx_terminate(s->mlx.mlx_cub);
 }
 
-void	background_hook(void *param)
-{
-	t_cub3d	*data;
-	int		i;
-
-	data = param;
-	i = 0;
-	while (i < WIDTH * HEIGHT)
-	{
-		if (i < WIDTH * (HEIGHT / 2))
-			mlx_put_pixel(data->mlx.window, i, 0, data->ceiling);
-		else if (i > WIDTH * (HEIGHT / 2))
-			mlx_put_pixel(data->mlx.window, i, 0, data->floor);
-		i++;
-	}
-}
-
 int	main(int ac, char *av[])
 {
 	t_cub3d	shlk;
@@ -57,8 +40,12 @@ int	main(int ac, char *av[])
 			error_msg("Check the map extension.");
 		if (check_elements(&shlk))
 			error_msg("Something goes wrong with the elements in the map.");
-		check_map(&shlk);
+		check_walls(&shlk);
+		check_pos_ini(&shlk);
+		check_invalid_char(&shlk);
 		init_game(&shlk);
 	}
+	else
+		error_msg("Too many arguments, please try again.");
 	return (EXIT_SUCCESS);
 }

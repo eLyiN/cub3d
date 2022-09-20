@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:26:21 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/15 00:20:10 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:22:02 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	set_pos_ini_n(t_raycast *r, int x, int y)
 	r->planey = 0.66;
 	return (true);
 }
+
 bool	set_pos_ini_e(t_raycast *r, int x, int y)
 {
 	r->posx = x;
@@ -32,6 +33,7 @@ bool	set_pos_ini_e(t_raycast *r, int x, int y)
 	r->planey = 0;
 	return (true);
 }
+
 bool	set_pos_ini_s(t_raycast *r, int x, int y)
 {
 	r->posx = x;
@@ -42,6 +44,7 @@ bool	set_pos_ini_s(t_raycast *r, int x, int y)
 	r->planey = -0.66;
 	return (true);
 }
+
 bool	set_pos_ini_w(t_raycast *r, int x, int y)
 {
 	r->posx = x;
@@ -53,7 +56,7 @@ bool	set_pos_ini_w(t_raycast *r, int x, int y)
 	return (true);
 }
 
-bool	check_pos_ini(t_cub3d *s)
+void	check_pos_ini(t_cub3d *s)
 {
 	int	x;
 	int	y;
@@ -63,8 +66,8 @@ bool	check_pos_ini(t_cub3d *s)
 	pos_ini = 0;
 	while (y < s->mapy)
 	{
-		x = 0;
-		while (s->map[y][x])
+		x = -1;
+		while (s->map[y][++x])
 		{
 			if (s->map[y][x] == 'N')
 				pos_ini += set_pos_ini_n(&s->rayc, x, y);
@@ -74,11 +77,9 @@ bool	check_pos_ini(t_cub3d *s)
 				pos_ini += set_pos_ini_s(&s->rayc, x, y);
 			else if (s->map[y][x] == 'W')
 				pos_ini += set_pos_ini_n(&s->rayc, x, y);
-			x++;
 		}
-		if (pos_ini > 1)
-			return (EXIT_FAILURE);
 		y++;
 	}
-	return (EXIT_SUCCESS);
+	if (pos_ini > 1)
+		error_msg("The map contains multiple starting positions.");
 }
