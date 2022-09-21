@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:49:00 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/20 16:22:35 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/22 00:17:47 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	calculate_step(t_cub3d *s)
 
 void	raycast_init(t_raycast *r, int x)
 {
-	r->camerax = (2 * x) / ((double)WIDTH - 1);
+	r->camerax = 2 * x / (double)WIDTH - 1;
 	r->raydirx = r->dirx + r->planex * r->camerax;
 	r->raydiry = r->diry + r->planey * r->camerax;
 	r->mapx = (int)r->posx;

@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:51:01 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/20 16:55:37 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/21 23:37:53 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	draw_textures(t_cub3d *s, mlx_image_t *tex, int x)
 void	draw_walls(t_cub3d *s, int x)
 {
 	s->rayc.lineheight = (int)((HEIGHT) / s->rayc.perpwalldist);
-	s->texturing.drawstart = (-s->rayc.lineheight / 2) + (HEIGHT / 2);
+	s->texturing.drawstart = (-s->rayc.lineheight / 2) + (HEIGHT / 2) + PITCH;
 	if (s->texturing.drawstart < 0)
 		s->texturing.drawstart = 0;
-	s->texturing.drawend = (s->rayc.lineheight / 2) + (HEIGHT / 2);
+	s->texturing.drawend = (s->rayc.lineheight / 2) + (HEIGHT / 2) + PITCH;
 	if (s->texturing.drawend >= HEIGHT)
 		s->texturing.drawend = HEIGHT - 1;
 	texturing_calculations(s, x);
@@ -64,9 +64,9 @@ void	background_hook(void *param)
 	i = 0;
 	while (i < WIDTH * HEIGHT)
 	{
-		if (i < WIDTH * (HEIGHT / 2))
+		if (i < WIDTH * (HEIGHT / 1.8))
 			mlx_put_pixel(data->mlx.window, i, 0, data->ceiling);
-		else if (i > WIDTH * (HEIGHT / 2))
+		else if (i > WIDTH * (HEIGHT / 1.8))
 			mlx_put_pixel(data->mlx.window, i, 0, data->floor);
 		i++;
 	}

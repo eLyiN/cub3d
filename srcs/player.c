@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:06:33 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/20 17:08:01 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/21 23:36:27 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,36 @@ void	wasd_hook(void *param)
 	s = param;
 	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_W))
 	{
-		s->rayc.posx += (s->rayc.dirx * MOV_SP) + (s->rayc.planex * MOV_SP);
-		s->rayc.posy += (s->rayc.diry * MOV_SP) + (s->rayc.planey * MOV_SP);
+		s->rayc.posx += (s->rayc.dirx * MOV_SP);
+		s->rayc.posy += (s->rayc.diry * MOV_SP);
 	}
-	else if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_S))
+	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_S))
 	{
-		s->rayc.posx -= (s->rayc.dirx * MOV_SP) + (s->rayc.planex * MOV_SP);
-		s->rayc.posy -= (s->rayc.diry * MOV_SP) + (s->rayc.planey * MOV_SP);
+		s->rayc.posx -= (s->rayc.dirx * MOV_SP);
+		s->rayc.posy -= (s->rayc.diry * MOV_SP);
 	}
-	else if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_D))
+	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_D))
 	{
 		s->rayc.posx += (s->rayc.planex * MOV_SP);
 		s->rayc.posy += (s->rayc.planey * MOV_SP);
 	}
-	else if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_A))
+	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_A))
 	{
 		s->rayc.posx -= (s->rayc.planex * MOV_SP);
 		s->rayc.posy -= (s->rayc.planey * MOV_SP);
+	}
+	if (mlx_is_key_down(s->mlx.mlx_cub, MLX_KEY_P))
+	{
+		printf("sidedistx: %f\n", s->rayc.sidedistx);
+		printf("sidedisty: %f\n", s->rayc.sidedisty);
+		printf("deltadistx: %f\n", s->rayc.deltadistx);
+		printf("deltadisty: %f\n", s->rayc.deltadisty);
+		printf("stepx: %d\n", s->rayc.stepx);
+		printf("stepy: %d\n", s->rayc.stepy);
+		printf("mapx: %d\n", s->rayc.mapx);
+		printf("mapy: %d\n", s->rayc.mapy);
+		printf("playerX: %f\n", s->rayc.posx);
+		printf("playerY: %f\n", s->rayc.posy);
 	}
 }
 

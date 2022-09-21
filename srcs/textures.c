@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:33:07 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/20 16:55:35 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/21 23:37:41 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	texturing_calculations(t_cub3d *s, int x)
 	s->texturing.texx = (int)(s->texturing.wallx * (double)tex->width);
 	s->texturing.texx = tex->width - s->texturing.texx - 1;
 	s->texturing.step = 1.0 * tex->height / s->rayc.lineheight;
-	s->texturing.texpos = (s->texturing.drawstart - s->mlx.height / 2
+	s->texturing.texpos = (s->texturing.drawstart - PITCH - s->mlx.height / 2
 			+ s->rayc.lineheight / 2) * s->texturing.step;
 	draw_textures(s, tex, x);
 }

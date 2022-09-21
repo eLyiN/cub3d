@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 08:47:07 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/20 17:07:37 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/21 23:37:55 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,5 @@
 # define HEIGHT 720
 # define MOV_SP .05
 # define RT_SP .05
+# define PITCH 50
 #endif
